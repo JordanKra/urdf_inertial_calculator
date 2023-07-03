@@ -138,9 +138,9 @@ pub fn get_input<U: std::str::FromStr>(prompt: &str) -> U {
 
 pub fn format_matrix(ix: f32, iy: f32, iz: f32) -> String {
     return format!(
-        "[{}, {}, {}]\n
-[{}, {}, {}]\n
-[{}, {}, {}]",
+        "Moment of inertia matrix:\n\nixx={} ixy={} ixz={}
+iyx={} iyy={} iyz={}
+izx={} izy={} izz={}\n",
         ix, 0., 0., 0., iy, 0., 0., 0., iz
     );
 }
@@ -151,8 +151,8 @@ fn main() {
     while !quit {
         println!(
             "Please select one of the following shapes:\n
-Solid Cuboid: 1\n
-Solid Sphere: 2\n
+Solid Cuboid: 1
+Solid Sphere: 2
 Solid Cylinder: 3"
         );
         let input: String = get_input("");
@@ -163,13 +163,14 @@ Solid Cylinder: 3"
             _ => continue,
         };
         shape.load_dimensions();
+        println!("Feel free to copy/paste this data between the <inertia> tags in your URDF file!");
         println!("Process another? (Y/N)");
         let input: String = get_input("");
         match input.as_str().trim() {
             "y" | "Y" | "Yes" | "yes" => quit = false,
             "n" | "N" | "No" | "no" => quit = true,
             _ => {
-                println!("Error! Incorrect option!")
+                println!("Invalid input! Please enter yes or no(y/n)")
             }
         }
     }
